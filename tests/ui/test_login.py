@@ -1,24 +1,11 @@
+import pytest
 from pages.login_page import LoginPage
-from data.login_test_data import (
-    VALID_USERNAME,
-    VALID_PASSWORD,
-    INVALID_USERNAME,
-    INVALID_PASSWORD,
-    VALID_LOGIN_MESSAGE,
-    INVALID_LOGIN_MESSAGE,
-)
+from data.login_cases import LOGIN_TEST_CASES
 
-def test_valid_login(page):
+@pytest.mark.parametrize("case", LOGIN_TEST_CASES)
+def test_login(page, case):
     login_page = LoginPage(page)
     login_page.open()
-    login_page.login(VALID_USERNAME, VALID_PASSWORD)
+    login_page.login(case["username"], case["password"])
 
-    assert VALID_LOGIN_MESSAGE in login_page.get_flash_message()
-
-
-def test_invalid_login(page):
-    login_page = LoginPage(page)
-    login_page.open()
-    login_page.login(INVALID_USERNAME, INVALID_PASSWORD)
-
-    assert INVALID_LOGIN_MESSAGE in login_page.get_flash_message()
+    assert case["expected_message"] in login_page.get_flash_message()
