@@ -1,13 +1,7 @@
+import os
 import pytest
 from playwright.sync_api import sync_playwright
 from pages.login_page import LoginPage
-
-
-@pytest.fixture
-def login_page(page):
-    login = LoginPage(page)
-    login.open()
-    return login
 
 
 @pytest.fixture(scope="session")
@@ -23,3 +17,23 @@ def page(browser):
     page = browser.new_page()
     yield page
     page.close()
+
+
+@pytest.fixture
+def login_page(page):
+    login = LoginPage(page)
+    login.open()
+    return login
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        page = item.funcargs.get("page")
+        if page:
+            os.makedirs("reports/screenshots", exist_ok=True)
+            screenshot_name = f"{item.name}.png"
+            page.screenshot(path=f"reports/screenshots/{screenshot_name}")

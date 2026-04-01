@@ -1,4 +1,5 @@
 from playwright.sync_api import Page
+from utils.config import BASE_URL
 
 
 class LoginPage:
@@ -10,7 +11,7 @@ class LoginPage:
         self.flash_message = "#flash"
 
     def open(self):
-        self.page.goto("https://the-internet.herokuapp.com/login")
+        self.page.goto(f"{BASE_URL}/login")
 
     def login(self, username: str, password: str):
         self.page.fill(self.username_input, username)
