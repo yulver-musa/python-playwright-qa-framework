@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+
+# Test reports
+reports/
+playwright-report/
+test-results/
+
+# OS files
+.DS_Store
+Thumbs.db
