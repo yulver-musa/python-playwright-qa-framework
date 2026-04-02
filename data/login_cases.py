@@ -13,7 +13,7 @@ LOGIN_TEST_CASES = [
         {
             "username": "wronguser",
             "password": "wrongpass",
-            "expected_message": "This will fail!",
+            "expected_message": "Your username is invalid!",
         },
         id="invalid_login",
     ),
