@@ -17,4 +17,12 @@ LOGIN_TEST_CASES = [
         },
         id="invalid_login",
     ),
+    pytest.param(
+        {
+            "username": "tomsmith ",
+            "password": "SuperSecretPassword!",
+            "expected_message": "Your username is invalid!",
+        },
+        id="valid_username_with_trailing_space"
+    ),
 ]
