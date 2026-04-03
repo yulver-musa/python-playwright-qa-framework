@@ -72,7 +72,7 @@
 - User is not logged in
 - Validation or error message is displayed
 
-**Automation Status:** Not Automated Yet
+**Automation Status:** Automated
 
 ---
 
