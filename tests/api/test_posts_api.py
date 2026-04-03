@@ -1,13 +1,14 @@
+import pytest
 from utils.api_client import APIClient
 
-
+@pytest.mark.api
 def test_get_posts_returns_200():
     client = APIClient()
     response = client.get("/posts")
 
     assert response.status_code == 200
 
-
+@pytest.mark.api
 def test_get_posts_return_non_empty_list():
     client = APIClient()
     response = client.get("/posts")
@@ -15,7 +16,7 @@ def test_get_posts_return_non_empty_list():
     assert isinstance(response.json(), list)
     assert len(response.json()) > 0
 
-
+@pytest.mark.api
 def test_create_post_returns_201():
     client = APIClient()
     payload = {
@@ -25,5 +26,9 @@ def test_create_post_returns_201():
     }
 
     response = client.post("/posts", payload)
+    data = response.json()
 
     assert response.status_code == 201
+    assert data["title"] == payload["title"]
+    assert data["body"] == payload["body"]
+    assert data["userId"] == payload["userId"]

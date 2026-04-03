@@ -1,6 +1,7 @@
 import pytest
 from data.login_cases import LOGIN_TEST_CASES
 
+@pytest.mark.ui
 @pytest.mark.smoke
 @pytest.mark.regression
 @pytest.mark.parametrize("case", LOGIN_TEST_CASES)
