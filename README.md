@@ -51,3 +51,25 @@ $env:ENV="staging"; pytest
 - CI/CD integration (GitHub Actions)
 - API test coverage
 - Database validation
+
+## Project Overview
+
+This project demonstrates a complete QA automation framework built using Python, Playwright, and Pytest.
+
+It includes:
+- UI automation (Playwright)
+- API testing (requests)
+- Test architecture using Page Object Model (POM)
+- Parametrized test cases and externalized test data
+- CI/CD integration with GitHub Actions
+- Automated reporting with screenshots on failure
+- Structured QA documentation (test strategy, test cases, bug reports)
+
+The framework is designed to simulate real-world QA practices and is fully reusable across different projects.
+
+## Documentation
+
+- Test Strategy: `docs/test-strategy.md`
+- Test Cases: `docs/test-cases.md`
+- Bug Reports: `docs/bug-report-examples.md`
+- Sample Reports: `docs/reports/`
