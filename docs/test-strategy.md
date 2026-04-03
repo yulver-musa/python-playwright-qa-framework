@@ -79,3 +79,46 @@ Test data is externalized in dedicated modules to:
 
 ### Local Execution
 Tests can be executed using:
+
+`pytest`
+
+### Selective Execution
+- API tests: `pytest -m api`
+- UI tests: `pytest -m ui`
+- Smoke tests: `pytest -m smoke`
+- Regression tests: `pytest -m regression`
+
+---
+
+## 8. CI/CD Integration
+
+The framework is integrated with GitHub Actions to:
+- Run tests automatically on code push
+- Ensure consistency across environments
+- Provide immediate feedback on failures
+
+---
+
+## 9. Reporting
+
+- HTML reports generated using pytest-html
+- Screenshots captured automatically on failure
+- Reports and artifacts stored in CI pipeline
+
+---
+
+## 10. Risks and Limitations
+
+- UI tests may be slower and more sensitive to UI changes
+- Public API used is a mock service (non-persistent data)
+- Limited test coverage due to demo scope
+
+---
+
+## 11. Future Improvements
+
+- Add API authentication testing
+- Integrate database validation
+- Implement parallel test execution
+- Expand UI test coverage
+- Enhance CI pipeline (test splitting, scheduling)
