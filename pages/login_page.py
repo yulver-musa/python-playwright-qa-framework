@@ -1,23 +1,21 @@
-from playwright.sync_api import Page
-from utils.config import BASE_URL
+from pages.base_page import BasePage
 
 
-class LoginPage:
-    def __init__(self, page: Page):
-        self.page = page
+class LoginPage(BasePage):
+
+    def __init__(self, page):
+        super().__init__(page)
+
         self.username_input = "#username"
         self.password_input = "#password"
         self.login_button = "button[type='submit']"
         self.flash_message = "#flash"
 
-    def open(self):
-        self.page.goto(f"{BASE_URL}/login")
+    def login(self, username, password):
+        self.navigate("/login")
+        self.fill(self.username_input, username)
+        self.fill(self.password_input, password)
+        self.click(self.login_button)
 
-    def login(self, username: str, password: str):
-        self.page.fill(self.username_input, username)
-        self.page.fill(self.password_input, password)
-        self.page.click(self.login_button)
-
-    def get_flash_message(self) -> str:
-        return self.page.inner_text(self.flash_message)
-    
+    def get_flash_message(self):
+        return self.get_text(self.flash_message)
