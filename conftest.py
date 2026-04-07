@@ -21,9 +21,7 @@ def page(browser):
 
 @pytest.fixture
 def login_page(page):
-    login = LoginPage(page)
-    login.open()
-    return login
+    return LoginPage(page)
 
 
 @pytest.hookimpl(hookwrapper=True)
