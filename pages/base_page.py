@@ -1,9 +1,12 @@
+from utils.config import BASE_URL
+
+
 class BasePage:
     def __init__(self, page):
         self.page = page
 
-    def navigate(self, url):
-        self.page.goto(url)
+    def navigate(self, path):
+        self.page.goto(f"{BASE_URL}{path}")
 
     def click(self, selector):
         self.page.click(selector)
