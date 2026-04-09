@@ -1,10 +1,17 @@
+import requests
 import pytest
 from utils.api_client import APIClient
 
 @pytest.mark.api
 def test_get_posts_returns_200():
-    client = APIClient()
-    response = client.get("/posts")
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.get(
+        "https://jsonplaceholder.typicode.com/posts",
+        headers=headers
+    )
 
     assert response.status_code == 200
 
