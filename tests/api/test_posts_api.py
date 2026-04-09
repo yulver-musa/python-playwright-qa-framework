@@ -17,11 +17,20 @@ def test_get_posts_returns_200():
 
 @pytest.mark.api
 def test_get_posts_return_non_empty_list():
-    client = APIClient()
-    response = client.get("/posts")
+    response = requests.get("https://jsonplaceholder.typicode.com/posts")
 
-    assert isinstance(response.json(), list)
-    assert len(response.json()) > 0
+    data = response.json()
+
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+    # NEW validations
+    first_item = data[0]
+
+    assert "userId" in first_item
+    assert "id" in first_item
+    assert "title" in first_item
+    assert "body" in first_item
 
 @pytest.mark.api
 def test_create_post_returns_201():
