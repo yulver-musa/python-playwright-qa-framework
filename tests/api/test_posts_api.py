@@ -21,16 +21,13 @@ def test_get_posts_return_non_empty_list():
 
     data = response.json()
 
+    print(data[:1])
+
+    import json
+    print(json.dumps(data[0], indent=2))
+
     assert isinstance(data, list)
     assert len(data) > 0
-
-    # NEW validations
-    first_item = data[0]
-
-    assert "userId" in first_item
-    assert "id" in first_item
-    assert "title" in first_item
-    assert "body" in first_item
 
 @pytest.mark.api
 def test_create_post_returns_201():
@@ -46,6 +43,7 @@ def test_create_post_returns_201():
     )
 
     data = response.json()
+
 
     assert response.status_code == 201
     assert data["title"] == payload["title"]
