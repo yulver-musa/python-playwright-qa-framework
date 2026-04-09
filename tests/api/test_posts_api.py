@@ -34,20 +34,24 @@ def test_get_posts_return_non_empty_list():
 
 @pytest.mark.api
 def test_create_post_returns_201():
-    client = APIClient()
     payload = {
         "title": "QA Test Post",
         "body": "This is a test payload",
         "userId": 1
     }
 
-    response = client.post("/posts", payload)
+    response = requests.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        json=payload
+    )
+
     data = response.json()
 
     assert response.status_code == 201
     assert data["title"] == payload["title"]
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
+    assert "id" in data
 
 @pytest.mark.api
 def test_get_post_invalid_id_returns_empty():
