@@ -61,3 +61,60 @@ def test_get_post_invalid_id_returns_empty():
     data = response.json()
 
     assert response.status_code == 404 or data == {}
+
+@pytest.mark.api
+def test_get_posts_by_user():
+    response = requests.get(
+        "https://jsonplaceholder.typicode.com/posts",
+        params={"userId": 1}
+    )
+
+    data = response.json()
+
+    assert response.status_code == 200
+    assert len(data) > 0
+
+    for post in data:
+        assert post["userId"] == 1
+
+@pytest.mark.api
+def test_create_and_get_post():
+    payload = {
+        "title": "QA Chain Test",
+        "body": "Testing chaining",
+        "userId": 1
+    }
+
+    post_response = requests.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        json=payload
+    )
+
+    assert post_response.status_code == 201
+
+    post_data = post_response.json()
+
+    post_id = post_data["id"]
+
+    get_response = requests.get(
+        f"https://jsonplaceholder.typicode.com/posts/{post_id}"
+    )
+
+    assert get_response.status_code in [200, 404]
+
+@pytest.mark.api
+def test_create_post_missing_title():
+    payload = {
+        "body": "No title",
+        "userId": 1
+    }
+
+    response = requests.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        json=payload
+    )
+
+    data = response.json()
+
+    assert response.status_code == 201  # fake API behavior
+    assert "title" not in payload
