@@ -118,3 +118,39 @@ def test_create_post_missing_title():
 
     assert response.status_code == 201  # fake API behavior
     assert "title" not in payload
+
+@pytest.mark.api
+def test_create_post_with_script_like_input():
+    payload = {
+        "title": "<script>alert('x')</script>",
+        "body": "Testing unsafe-like input handling",
+        "userId": 1
+    }
+
+    response = requests.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        json=payload
+    )
+
+    data = response.json()
+
+    assert response.status_code == 201
+    assert data["title"] == payload["title"]
+
+@pytest.mark.api
+def test_create_post_with_empty_body():
+    payload = {
+        "title": "Valid title",
+        "body": "",
+        "userId": 1
+    }
+
+    response = requests.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        json=payload
+    )
+
+    data = response.json()
+
+    assert response.status_code == 201
+    assert data["body"] == payload["body"]
