@@ -14,6 +14,7 @@ def test_get_posts_returns_200():
     )
 
     assert response.status_code == 200
+    assert response.elapsed.total_seconds() < 1
 
 @pytest.mark.api
 def test_get_posts_return_non_empty_list():
